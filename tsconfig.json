@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "typeRoots": ["global.d.ts", "src/types",
+       "src/axel/types/index.d.ts",
+       "src/common/types/index.d.ts",
+
+       "node_modules/@types"],
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@axel/*": ["common/*"],
+      "@app/*": ["/*"]
+    }
+  },
+
+  "include": ["global.d.ts", "src/common/types/index.d.ts", "src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
