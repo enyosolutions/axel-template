@@ -1,5 +1,5 @@
 {
-  "name": "{{name}}",
+  "name": "name",
   "version": "0.0.1",
   "description": "Express + typescript in the Sailsjs flavor",
   "main": "index.js",
@@ -19,8 +19,7 @@
   "dependencies": {
     "ajv": "^6.12.2",
     "async": "^3.2.0",
-    "atob": "^2.0.3",
-    "axel-cli": "^0.0.8",
+    "axel-cli": "^0.0.9",
     "axios": "^0.18.0",
     "bcrypt": "^4.0.1",
     "better-console": "^1.0.1",
@@ -35,7 +34,6 @@
     "express-openapi-validator": "^3.6.6",
     "express-request-id": "^1.4.1",
     "flat": "^4.1.0",
-    "fs": "^0.0.1-security",
     "googleapis": "^61.0.0",
     "helmet": "^3.21.2",
     "js-yaml": "^3.13.1",

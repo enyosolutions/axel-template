@@ -91,14 +91,7 @@ module.exports = {
       },
     },
     associations: (models: { [key: string]: any }) => {
-      models.user.hasOne(models.client, {
-        foreignKey: 'id',
-        targetKey: 'userId',
-      });
-      models.user.hasOne(models.provider, {
-        foreignKey: 'id',
-        targetKey: 'userId',
-      });
+
     },
     options: {
       tableName: 'user',

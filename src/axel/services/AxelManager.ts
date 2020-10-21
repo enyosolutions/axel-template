@@ -4,7 +4,7 @@ import { Request, Response, Application } from 'express';
 import Utils from './Utils';
 import SchemaValidator from './SchemaValidator';
 import _, { throttle } from 'lodash';
-import { generateController, generateModel, generateApi, generateRoute } from 'axel-cli/src/api';
+import { generateController, generateModel, generateApi, generateRoute } from 'axel-cli/lib/api';
 
 type WebserviceRequest = {
   method: string;

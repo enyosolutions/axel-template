@@ -1608,7 +1608,7 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-atob@^2.0.3, atob@^2.1.2:
+atob@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
@@ -1633,10 +1633,10 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
 
-axel-cli@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/axel-cli/-/axel-cli-0.0.8.tgz#0042a1eb98dde6dfc00991773ffca64058bfcfdd"
-  integrity sha512-1sUcwc7p2d1nRs6gYVWGy7yzof4KF19vPAeRxKlJ+5VkBYplrRPp5O8CDADistlsyjQUibcgbxPN4gaHGVNVGQ==
+axel-cli@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/axel-cli/-/axel-cli-0.0.9.tgz#e9a6b0aef54cce60be745e9f5527e25a2820774d"
+  integrity sha512-S0okVd1q4c2g1eizxAU7sVOwnr5AsdcY8hJhN8OeQ2f+xkqpUOJ7o7zkR9VFd/rUX1N+0g+TbY/sD5i6Nx4Puw==
   dependencies:
     "@commitlint/cli" "^8.3.5"
     "@oclif/command" "^1"
@@ -4363,11 +4363,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
-
-fs@^0.0.1-security:
-  version "0.0.1-security"
-  resolved "https://registry.yarnpkg.com/fs/-/fs-0.0.1-security.tgz#8a7bd37186b6dddf3813f23858b57ecaaf5e41d4"
-  integrity sha1-invTcYa23d84E/I4WLV+yq9eQdQ=
 
 fsevents@^1.2.7:
   version "1.2.12"
