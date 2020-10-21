@@ -12,23 +12,6 @@ export default {
   routes: {
 
 
-
-    // Endpoints for Page
-    // If you don't need some of them, be sure to delete the route AND the action in the controller...
-    'GET /api/page/stats': 'PageController.stats',
-    'GET /api/page': 'PageController.list',
-    'GET /api/page/:id': 'PageController.get',
-    'POST /api/page': 'PageController.post',
-    'PUT /api/page/:id': 'PageController.put',
-    'DELETE /api/page/:id': 'PageController.delete',
-
-    /*
-        // UNCOMMENT IF YOU NEED IMPORT AND EXPORT FORM EXCEL FEATURES
-        'GET /api/page/export': 'PageController.export',
-        'POST /api/page/import': 'PageController.import',
-        'GET /api/page/import-template': 'PageController.importTemplate',
-        */
-
     /*
      **************************************************************************
      *                                                                          *

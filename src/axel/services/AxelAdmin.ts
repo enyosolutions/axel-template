@@ -19,8 +19,11 @@ class AxelAdmin {
    * @memberof AxelAdmin
    */
   init(app: Application): Promise<any> {
-    if (!axel.sqldb) {
+    if (!axel.sqldb ) {
       return Promise.reject('missing_sqldb');
+    }
+    if (!axel.models.axelModelConfig ) {
+      return Promise.reject('missing_axelModelConfig');
     }
     return axel.models.axelModelConfig.em
       .findAll()

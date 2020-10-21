@@ -192,12 +192,12 @@ function injectAxelAdminConfig(): void {
   }
   axel.config.routes['GET /api/automatic/axel-entity-config'] = '@axel/controllers/AxelModelConfigController.list';
   axel.config.routes['GET /api/automatic/axel-entity-config/:id'] = '@axel/controllers/AxelModelConfigController.get';
-  axel.config.routes['POST /api/automatic/axel-entity-config'] = '@axel/controllers/AxelModelConfigController.post';
   axel.config.routes['PUT /api/automatic/axel-entity-config/:id'] =
   '@axel/controllers/AxelModelConfigController.put';
   axel.config.routes['DELETE /api/automatic/axel-entity-config/:id'] =
   '@axel/controllers/AxelModelConfigController.delete';
-  axel.config.routes['GET /api/axel-admin/models'] = '@axel/controllers/AxelAdminController.get';
+
+  axel.config.routes['GET /api/axel-admin/models'] = '@axel/controllers/AxelAdminController.models';
 }
 
 function injectCrudRoutesConfig(): void {

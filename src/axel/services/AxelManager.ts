@@ -25,8 +25,8 @@ class AxelManager {
    * @memberof AxelAdmin
    */
   init(app: Application): void {
+    console.log('\n\n\n\n\n\n', 'WS for axelManager opening');
     const io = require('socket.io')(app.locals.server);
-    console.log('\n\n\n\n\n\n', 'soclkt opening');
     app.locals.io = io;
     io.on('connect', function(socket: any) {
       console.log('WS client connected', socket.id);
