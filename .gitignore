@@ -1,10 +1,8 @@
 api/dist
+dist
 node_modules
 *node_modules
-api/.env
-api/.env.local
-api/src/config/local.js
-api/src/config/local.ts
+console.log('\n\n\n\n\n\n', 'WS for axelManager opening');
 
 
 ################################################
@@ -20,6 +18,7 @@ api/assets/data/*
 !api/assets/data/static/.gitkeep
 !api/assets/data/static/*
 dump.rdb
+src/config/local.ts
 
 
 ################################################
