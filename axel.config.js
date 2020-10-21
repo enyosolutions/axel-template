@@ -1,5 +1,5 @@
 module.exports = {
-  "projectName": "frii",
+  "projectName": "{{name}}",
   "modelIdentityFormat": "camelCase",
   "database": "sequelize",
   "primaryKey": "id"

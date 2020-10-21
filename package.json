@@ -1,5 +1,5 @@
 {
-  "name": "axel",
+  "name": "{{name}}",
   "version": "0.0.1",
   "description": "Express + typescript in the Sailsjs flavor",
   "main": "index.js",
