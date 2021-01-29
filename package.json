@@ -3,17 +3,18 @@
   "description": "Express with sensible configuration",
   "author": "",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "serve": "node index.js",
+    "dev": "nodemon index.js",
+    "debug": "nodemon --exec 'node --inspect ./index.js | pino-pretty'",
     "data:load": "cross-env AXEL_DISABLE_EMAILS=true NO_SEQUELIZE_LOGS=true node scripts/loadData.ts",
     "db:sync": "axel db:sync --alter",
-    "debug": "nodemon --exec 'node --inspect ./src/index.js | pino-pretty'",
-    "dev": "nodemon src/index.js",
     "jest": "cross-env AXEL_DISABLE_EMAILS=true NO_SEQUELIZE_LOGS=true jest -c jest.config.js",
     "lint": "eslint -c .eslintrc.js src/api src/config",
     "lint:fix": "eslint -c .eslintrc.js src/api src/config  --fix ",
     "lint:watch": "nodemon --exec 'npm run lint:fix'",
-    "start": "node src/index.js",
     "test": "cross-env AXEL_DISABLE_EMAILS=true NO_SEQUELIZE_LOGS=true jest -c jest.config.js   && :",
     "test:clean": "cross-env DATABASE_NAME=--name--_test AXEL_DISABLE_EMAILS=true NO_SEQUELIZE_LOGS=true axel db:sync --alter --force --silent  && :",
     "test:debug": "npm run jest -- --debug"
@@ -68,7 +69,7 @@
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
     "cross-env": "^7.0.2",
-    "eslint": "^7.18.0",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^6.6.0",
     "eslint-plugin-import": "^2.20.2",
@@ -107,12 +108,6 @@
   "lint-staged": {
     "package.json": [
       "prettier-package-json --write"
-    ],
-    "front/package.json": [
-      "prettier-package-json --write"
-    ],
-    "front/src/config/locales/*.json": [
-      "jsonlint -i -s"
     ],
     "*.js": [
       "yarn lint:fix",
