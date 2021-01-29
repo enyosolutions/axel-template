@@ -1,0 +1,168 @@
+// const express = require('express');
+/*
+type RouteObject = {
+  routes : {
+    [key: string]: RouteDefinitions;
+  };
+};
+*/
+
+module.exports = {
+  routes: {
+    /*
+     **************************************************************************
+     *                                                                          *
+     * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+     * etc. depending on your default view engine) your home page.              *
+     *                                                                          *
+     * (Alternatively, remove this and add an `index.html` file in your         *
+     * `assets` directory)                                                      *
+     *                                                                          *
+     **************************************************************************
+     */
+    // '/': {
+    //   controller: 'core/App',
+    //   action: 'app',
+    //   secure: false, // you need this if you defined you api as always secure !
+    //   skipAssets: true,
+    // },
+
+    // demo redirected
+    '/': {
+      controller: 'core/AppController',
+      action: 'index',
+      secure: false
+    },
+
+    // demo
+    '/front': (req, res) => res.redirect('/'),
+    // '/admin': { secure: false, use: express.static('../admin/dist') },
+    '/^(login|register|forgot-password|password-reset|app|reset-password)$': {
+      controller: 'core/App',
+      action: 'app',
+      skipAssets: true,
+      secure: false,
+    },
+
+    '/app.*': {
+      controller: 'core/App',
+      action: 'app',
+      skipAssets: true,
+      secure: false,
+    },
+
+    '/reset-password/:id': {
+      controller: 'core/App',
+      action: 'app',
+      skipAssets: true,
+      secure: false,
+    },
+
+    '/api/swagger.json': {
+      controller: 'core/AppController',
+      action: 'swaggerJson',
+      secure: false,
+    },
+
+    '/api/swagger.yml': {
+      controller: 'core/AppController',
+      action: 'swaggerYml',
+      secure: false,
+    },
+
+    '/console': {
+      view: 'swagger',
+      secure: false,
+    },
+
+    '/documentation': {
+      view: 'redoc',
+      secure: false,
+    },
+
+    'OPTIONS /api/*': {
+      controller: 'core/AppController',
+      action: 'ok',
+      secure: false,
+    },
+
+    '/api/status': {
+      controller: 'core/AppController',
+      action: 'status',
+      secure: false,
+    },
+
+    'GET /api/statistics/overview': 'core/AppController.statistics',
+    'GET /api/error_codes': 'core/AppController.errorCodes',
+
+    'POST /api/auth/register': {
+      controller: 'core/UserSqlController',
+      action: 'create',
+      secure: false,
+    },
+    'POST /api/auth/login': {
+      controller: '@axel/controllers/AuthController',
+      action: 'login',
+      secure: false,
+    },
+
+    'POST /api/auth/admin_login': {
+      controller: 'core/AuthController',
+      action: 'login',
+      secure: false,
+    },
+
+    'POST /api/auth/google/callback': {
+      controller: 'core/AuthController',
+      action: 'googleCallback',
+      secure: false,
+    },
+
+    'POST /api/auth/facebook/callback': {
+      controller: 'core/AuthController',
+      action: 'facebookCallback',
+      secure: false,
+    },
+
+    'POST /api/auth/forgot': {
+      controller: 'core/AuthController',
+      action: 'forgot',
+      secure: false,
+    },
+    'GET /api/auth/user': 'core/AuthController.get',
+
+    'GET /api/auth/confirm/:email': {
+      controller: 'core/AuthController',
+      action: 'confirmUserRegistration',
+      secure: false,
+    },
+
+    'GET /api/user/token/:resetToken': 'core/UserSqlController.getByResetToken',
+    'POST /api/user/reset/:resetToken': {
+      controller: 'core/UserSqlController',
+      action: 'reset',
+      secure: false,
+    },
+    'GET /api/user/exists': 'core/UserSqlController.exists',
+    'POST /api/user': {
+      controller: 'core/UserSqlController',
+      action: 'create',
+      secure: false,
+    },
+    'GET /api/user': 'core/UserSqlController.list',
+    'GET /api/user/:userId': {
+      controller: 'core/UserSqlController',
+      action: 'get',
+      secure: true,
+    },
+    'PUT /api/user/:userId': 'core/UserSqlController.update',
+    'POST /api/user/:userId/avatar': 'core/UserSqlController.uploadAvatar',
+    'DELETE /api/user/:userId': 'core/UserSqlController.delete',
+
+    'GET /api/auth/gmail': {
+      controller: 'core/AuthController',
+      action: 'gmailAuth',
+      secure: false,
+    },
+  },
+};

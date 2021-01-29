@@ -41,13 +41,22 @@ Hence we started this project as an attempt to have a startup template for our p
 Get started developing...
 
 ```shell
-# install deps
+# Install deps
 npm install
 
-# run in development mode
+# Setup environment
+cp .env.test .env
+
+# Create the local configuration file
+cp api/src/config/local.js.dist api/src/config/local.js
+
+# Connect to db and add token
+vim api/src/config/local.js
+
+# Run in development mode
 npm run dev
 
-# run tests
+# Run tests
 npm run test
 ```
 
@@ -60,6 +69,15 @@ Install all package dependencies (one time operation)
 ```shell
 npm install
 ```
+
+# Setup environment
+
+Create the `.env` file at the root (example can be found in the `.env.test` file).
+
+Enter the MySQL database config and a token (for JSON Web Token) in `api/src/config/local.js` (`sqldb` section)
+
+
+# Synchronyze 
 
 ## Run It
 #### Run in *development* mode:
@@ -77,11 +95,10 @@ npm run dev:debug
 
 #### Run in *production* mode:
 
-Compiles the application and starts it in production production mode.
+Starts it in production mode.
 
 ```shell
-npm run compile
-npm start
+npm run start
 ```
 
 ## Test It
