@@ -8,7 +8,7 @@ const MailService = {
   },
   sendPasswordReset(email, data = {}) {
     const mergedData = _.merge({}, this.defaultData, data);
-    mergedData.title = 'Livodoc - Mot de passe perdu';
+    mergedData.title = 'Mot de passe perdu';
     return axel.renderView('emails/account-reset', mergedData, (err, html) => {
       if (err) return axel.logger.warn(err);
       MailService.sendMail(email, mergedData.title, html);

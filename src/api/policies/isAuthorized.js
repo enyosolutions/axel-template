@@ -7,7 +7,7 @@
 const core = require('axel-core');
 
 const { AuthService } = core;
-const debug = require('debug')('livodoc:policies:isAuthorized');
+const debug = require('debug')('app:policies:isAuthorized');
 
 module.exports = function isAuthorized(req, res, next) {
   let token;

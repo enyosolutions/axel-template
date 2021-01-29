@@ -1,10 +1,10 @@
 module.exports = {
   sqldb: {
-    user: 'livodoc',
+    user: 'root',
     host: 'localhost',
-    database: 'livodoc',
+    database: '<please-set-your-database>',
     dialect: 'mysql',
-    password: 'livodoc',
+    password: 'root',
     port: 3306,
     options: {
       dialect: 'mysql', // 'mysql'|'sqlite'|'postgres'|'mssql'
