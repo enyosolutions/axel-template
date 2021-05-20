@@ -21,13 +21,13 @@ module.exports = {
     dialect: 'mysql',
     options: {
       dialect: 'mysql',
-      logging: process.env.NO_SEQUELIZE_LOGS ? false : console.log, // or specify App.log level to use ('info', 'warn', 'verbose', etc)
+      logging: false, // use DEBUG=sequelize:*  to see sql logs
 
     }
   },
 
   mail: {
-    transport: 'sendgrid', // aws | gmail | sendgrid | smtp
+    transport: 'smtp', // aws | gmail | sendgrid | smtp
     protocol: 'SMTP',
     options: {
       host: '127.0.0.1',

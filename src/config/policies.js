@@ -32,7 +32,7 @@ module.exports.policies = {
     models: ['isAuthorized'],
     createController: true,
   },
-  UserSqlController: {
+  UserController: {
     list: ['isAuthorized'],
     update: ['isAuthorized', 'isOwnerOrIsAdmin'],
     get: ['isAuthorized', 'isOwnerOrIsAdmin'],

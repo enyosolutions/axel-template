@@ -54,17 +54,17 @@ module.exports = {
         if (user) {
           user = user.get();
 
-          if (!user.roles || typeof user.roles === 'string') {
+          if (!user.roles) {
             user.roles = ['USER'];
           }
 
-          user.visits += 1;
-          axel.models.user.em.update(user, {
-            where: {
-              id: user.id,
-            },
-          });
-
+          if (user.roles && typeof user.roles === 'string') {
+            try {
+              user.roles = JSON.parse(user.roles);
+            } catch (e) {
+              user.roles = ['USER'];
+            }
+          }
           return res.status(200).json({
             user: _.omit(user, [
               'password',
@@ -327,7 +327,7 @@ module.exports = {
           user.roles = ['USER'];
         }
 
-        if (typeof user.roles === 'string') {
+        if (user.roles && typeof user.roles === 'string') {
           try {
             user.roles = JSON.parse(user.roles);
           } catch (e) {
@@ -335,19 +335,12 @@ module.exports = {
           }
         }
 
-        token = AuthService.generateFor(_.pick(user, ['firstName', 'lastName', 'roles', 'id']));
-        if (!user.logins) {
-          user.visits = 0;
-          user.logins = 0;
-        }
-
-        user.logins += 1;
-        user.visits += 1;
+        token = AuthService.generateFor(_.pick(user, ['id']));
         user.lastConnexionOn = new Date();
 
         const updatedUser = _.cloneDeep(user);
 
-        return axel.models.user.em.update(updatedUser, {
+        return axel.models.user.em.update({ lastConnexionOn: new Date() }, {
           where: {
             id: updatedUser.id,
           },
@@ -449,18 +442,11 @@ module.exports = {
           }
 
           // If user created successfuly we return user and token as response
-          token = AuthService.generateFor(_.pick(user, ['firstName', 'lastName', 'roles', 'id']));
+          token = AuthService.generateFor(_.pick(user, ['id']));
 
-          if (!user.logins) {
-            user.visits = 0;
-            user.logins = 0;
-          }
-
-          user.logins += 1;
-          user.visits += 1;
           user.lastConnexionOn = new Date();
 
-          return axel.models.user.em.update(user, {
+          return axel.models.user.em.update({ lastConnexionOn: new Date() }, {
             where: {
               [primaryKey]: user[primaryKey],
             },
@@ -560,16 +546,10 @@ module.exports = {
             delete user.activationToken;
           }
 
-          if (!user.logins) {
-            user.visits = 0;
-            user.logins = 0;
-          }
 
-          user.logins += 1;
-          user.visits += 1;
           user.lastConnexionOn = new Date();
 
-          return axel.models.user.em.update(user, {
+          return axel.models.user.em.update({ lastConnexionOn: new Date() }, {
             where: {
               [primaryKey]: user[primaryKey],
             },

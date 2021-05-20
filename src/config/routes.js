@@ -96,7 +96,7 @@ module.exports = {
     'GET /api/error_codes': 'core/AppController.errorCodes',
 
     'POST /api/auth/register': {
-      controller: 'core/UserSqlController',
+      controller: 'core/UserController',
       action: 'create',
       secure: false,
     },
@@ -137,27 +137,27 @@ module.exports = {
       secure: false,
     },
 
-    'GET /api/user/token/:resetToken': 'core/UserSqlController.getByResetToken',
+    'GET /api/user/token/:resetToken': 'core/UserController.getByResetToken',
     'POST /api/user/reset/:resetToken': {
-      controller: 'core/UserSqlController',
+      controller: 'core/UserController',
       action: 'reset',
       secure: false,
     },
-    'GET /api/user/exists': 'core/UserSqlController.exists',
+    'GET /api/user/exists': 'core/UserController.exists',
     'POST /api/user': {
-      controller: 'core/UserSqlController',
+      controller: 'core/UserController',
       action: 'create',
       secure: false,
     },
-    'GET /api/user': 'core/UserSqlController.list',
+    'GET /api/user': 'core/UserController.list',
     'GET /api/user/:userId': {
-      controller: 'core/UserSqlController',
+      controller: 'core/UserController',
       action: 'get',
       secure: true,
     },
-    'PUT /api/user/:userId': 'core/UserSqlController.update',
-    'POST /api/user/:userId/avatar': 'core/UserSqlController.uploadAvatar',
-    'DELETE /api/user/:userId': 'core/UserSqlController.delete',
+    'PUT /api/user/:userId': 'core/UserController.update',
+    'POST /api/user/:userId/avatar': 'core/UserController.uploadAvatar',
+    'DELETE /api/user/:userId': 'core/UserController.delete',
 
     'GET /api/auth/gmail': {
       controller: 'core/AuthController',

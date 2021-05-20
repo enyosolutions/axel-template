@@ -1,5 +1,5 @@
 /**
- * UserSqlController
+ * UserController
  *
  * @description :: Server-side logic for managing users
  * @help        :: See http://links.axel.s.org/docs/controllers
@@ -20,21 +20,6 @@ const primaryKey = axel.models.user && axel.models.user.em && axel.models.user.e
   : axel.config.framework.primaryKey;
 
 module.exports = {
-  initDefaultUser(req, res) {
-    if (['PROD', 'prod', 'production'].indexOf(axel.config.env) > -1) {
-      res.json('NOPE');
-      return;
-    }
-    req.body = {};
-    req.body.email = 'dev@enyosolutions.com';
-    req.body.firstname = 'Tony';
-    req.body.lastname = 'Stark';
-    req.body.username = 'enyosolutions';
-    req.body.password = 'Test1234';
-    req.body.roles = ['USER', 'ADMIN'];
-    axel.getActions()['user/create'](req, res);
-  },
-
   /**
    * @swagger
    *

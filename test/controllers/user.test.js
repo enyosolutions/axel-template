@@ -2,7 +2,7 @@ const request = require('supertest');
 const faker = require('faker');
 const jsf = require('json-schema-faker');
 const model = require('../../src/api/models/schema/user');
-const controller = require('../../src/api/controllers/core/UserSqlController');
+const controller = require('../../src/api/controllers/core/UserController');
 
 // @ts-ignore
 const axel = global.axel || require('axel-core');
