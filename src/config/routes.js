@@ -93,7 +93,6 @@ module.exports = {
     },
 
     'GET /api/statistics/overview': 'core/AppController.statistics',
-    'GET /api/error_codes': 'core/AppController.errorCodes',
 
     'POST /api/auth/register': {
       controller: 'core/UserController',

@@ -33,12 +33,6 @@ class AppController {
     res.render('home');
   }
 
-  errorCodes(req, res) {
-    res.json({
-      body: axel.config.errorCodes,
-    });
-  }
-
   /**
    *
    * @param  {[type]}

@@ -34,9 +34,9 @@ module.exports.policies = {
   },
   UserController: {
     list: ['isAuthorized'],
-    update: ['isAuthorized', 'isOwnerOrIsAdmin'],
-    get: ['isAuthorized', 'isOwnerOrIsAdmin'],
-    delete: ['isAuthorized', 'isOwnerOrIsAdmin'],
+    update: ['isAuthorized'],
+    get: ['isAuthorized'],
+    delete: ['isAuthorized'],
     create: true,
     getByResetToken: true,
     reset: true,
