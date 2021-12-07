@@ -2,8 +2,7 @@ api/dist
 dist
 node_modules
 *node_modules
-console.log('\n\n\n\n\n\n', 'WS for axelManager opening');
-
+public/axel-manager.html
 
 ################################################
 # axel.js / Waterline / Grunt

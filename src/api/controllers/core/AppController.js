@@ -28,7 +28,8 @@ class AppController {
   index(req, res) {
     console.log(process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'development') {
-      return res.render('axel-manager');
+      return res.sendFile(`${process.cwd()}/public/axel-manager.html`);
+      // return res.render('axel-manager');
     }
     res.render('home');
   }

@@ -2,7 +2,6 @@ require('dotenv').config();
 const core = require('axel-core');
 const d = require('debug');
 
-console.log(core.config);
 const middlewares = require('./src/middlewares');
 const { beforeFn, afterFn } = require('./src/bootstrap');
 const MailService = require('./src/api/services/common/MailService');

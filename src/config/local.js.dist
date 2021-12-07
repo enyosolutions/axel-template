@@ -47,7 +47,7 @@ module.exports = {
     webhook: '',
     channel: '#app_dev'
   },
-  tokenSecret: '',
+  tokenSecret: process.env.APP_SECRET || '',
   google: {
     clientId: '',
     clientSecret: '',
