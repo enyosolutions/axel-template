@@ -1,12 +1,20 @@
-const config = require('../../../src/config/local');
+/* eslint-disable global-require */
+let mergedConfig;
+try {
+  // eslint-disable-next-line
+  mergedConfig = require('../../../src/config/local');
+} catch (err) {
+  mergedConfig = require('../../../src/config/sqldb');
+}
 
 module.exports = {
   development: {
-    username: config.sqldb.user,
-    database: config.sqldb.database,
-    password: config.sqldb.password,
-    host: config.sqldb.host,
-    dialect: config.sqldb.dialect || (config.sqldb.options && config.sqldb.options.dialect) || 'mysql',
+    username: mergedConfig.sqldb.user,
+    database: mergedConfig.sqldb.database,
+    password: mergedConfig.sqldb.password,
+    host: mergedConfig.sqldb.host,
+    port: mergedConfig.sqldb.port,
+    dialect: mergedConfig.sqldb.dialect || (mergedConfig.sqldb.options && mergedConfig.sqldb.options.dialect) || 'mysql',
   },
   define: {
     charset: 'utf8',
