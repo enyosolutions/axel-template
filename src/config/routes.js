@@ -9,17 +9,6 @@ type RouteObject = {
 
 module.exports = {
   routes: {
-    /*
-     **************************************************************************
-     *                                                                          *
-     * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-     * etc. depending on your default view engine) your home page.              *
-     *                                                                          *
-     * (Alternatively, remove this and add an `index.html` file in your         *
-     * `assets` directory)                                                      *
-     *                                                                          *
-     **************************************************************************
-     */
     // '/': {
     //   controller: 'core/App',
     //   action: 'app',
@@ -27,16 +16,13 @@ module.exports = {
     //   skipAssets: true,
     // },
 
-    // demo redirected
+
     '/': {
       controller: 'core/AppController',
       action: 'index',
       secure: false
     },
 
-    // demo
-    '/front': (req, res) => res.redirect('/'),
-    // '/admin': { secure: false, use: express.static('../admin/dist') },
     '/^(login|register|forgot-password|password-reset|app|reset-password)$': {
       controller: 'core/App',
       action: 'app',

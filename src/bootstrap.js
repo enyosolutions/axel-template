@@ -1,7 +1,7 @@
+const debug = require('debug')('app:boostrap');
 const core = require('axel-core');
 const I18n = require('./api/services/I18n');
 const CronService = require('./api/services/CronService');
-const debug = require('debug')('app:boostrap');
 
 const { AxelAdmin, AxelManager, SchemaValidator } = core;
 
@@ -31,7 +31,6 @@ module.exports.afterFn = app => new Promise((resolve, reject) => {
     if (AxelAdmin) {
       AxelAdmin.init(app);
     }
-
 
     if (process.env.NODE_ENV !== 'test') {
       AxelManager.init(app);

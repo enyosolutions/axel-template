@@ -1,6 +1,12 @@
 const _ = require('lodash');
 const nodemailer = require('nodemailer');
 
+
+const logEmailError = (err) => {
+  axel.logger.warn(err);
+  throw err;
+};
+
 const MailService = {
   defaultData: {
     title: '',
@@ -9,10 +15,9 @@ const MailService = {
   sendPasswordReset(email, data = {}) {
     const mergedData = _.merge({}, this.defaultData, data);
     mergedData.title = 'Mot de passe perdu';
-    return axel.renderView('emails/account-reset', mergedData, (err, html) => {
-      if (err) return axel.logger.warn(err);
-      MailService.sendMail(email, mergedData.title, html);
-    });
+    return axel.renderView('emails/account-reset', mergedData)
+      .then(html => MailService.sendMail(email, mergedData.title, html))
+      .catch(logEmailError);
   },
 
   sendUserCreated(user) {
@@ -20,31 +25,25 @@ const MailService = {
     data.title = 'Bienvenue';
     data.user = user;
 
-    return axel.renderView('emails/account-created', data, (err, html) => {
-      if (err) return axel.logger.warn(err);
-      MailService.sendMail(
-        user.email,
-        data.title,
-        html,
-      );
-    });
+    return axel.renderView('emails/account-created', data).then(html => MailService.sendMail(
+      user.email,
+      data.title,
+      html
+    ))
+      .catch(logEmailError);
   },
 
-  sendEmailConfirmation(user) {
-    return new Promise((resolve, reject) => {
-      const data = _.merge({}, this.defaultData);
-      data.title = `${axel.config.appName || axel.config.app} - Confirmez votre adresse`;
-      data.user = user;
+  async sendEmailConfirmation(user) {
+    const data = _.merge({}, this.defaultData);
+    data.title = `${axel.config.appName || axel.config.app} - Confirmez votre adresse`;
+    data.user = user;
 
-      axel.renderView('emails/account-created', data, (err, html) => {
-        if (err) return axel.logger.warn(err) && reject(err);
-        MailService.sendMail(
-          user.email,
-          data.title,
-          html,
-        ).then(resolve).catch(reject);
-      });
-    });
+    return axel.renderView('emails/account-created', data).then(html => MailService.sendMail(
+      user.email,
+      data.title,
+      html
+    ))
+      .catch(logEmailError);
   },
 
   async getTransport() {
@@ -106,7 +105,7 @@ const MailService = {
         try {
           transporter.sendMail(mailOptions, (err) => {
             if (err) {
-              console.log('[err] => ', err);
+              console.warn('[sendMail][err] => ', err);
               // axel.logger.warn('error while sending Email');
               axel.logger.warn('error while sending Email', err);
               axel.logger.warn('***');
@@ -128,34 +127,6 @@ const MailService = {
         } catch (err) {
           reject(err);
         }
-      });
-    });
-  },
-
-  sendMailinglistThankyou(user, data = {}) {
-    return new Promise((resolve, reject) => {
-      const mergedData = _.merge({}, this.defaultData, data);
-      mergedData.title = 'Thank you';
-      mergedData.layout = 'email-template';
-      mergedData.user = user;
-
-      axel.renderView('emails/mailinglist-thankyou', mergedData, (err, html) => {
-        if (err) return axel.logger.warn(err) && reject(err);
-        resolve(MailService.sendMail(user.email, mergedData.title, html));
-      });
-    });
-  },
-
-  sendEnquiryConfirm(user, data = {}) {
-    return new Promise((resolve, reject) => {
-      const mergedData = _.merge({}, this.defaultData, data);
-      mergedData.title = 'Thank you';
-      mergedData.layout = 'email-template';
-      mergedData.user = user;
-
-      axel.renderView('emails/enquiry-confirm', mergedData, (err, html) => {
-        if (err) return axel.logger.warn(err) && reject(err);
-        resolve(MailService.sendMail(user.email, mergedData.title, html));
       });
     });
   },
