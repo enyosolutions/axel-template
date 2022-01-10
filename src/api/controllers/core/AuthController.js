@@ -393,7 +393,6 @@ module.exports = {
     let newUserCreated = false;
     GoogleAuthService.getGoogleAccountFromToken(googleToken)
       .then((account) => {
-        console.log(account);
         if (!account) {
           throw new Error('error_wrong_google_token');
         }
@@ -463,7 +462,7 @@ module.exports = {
         });
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log('googleCallback', err.response);
         axel.logger.warn(err && err.message ? err.message : err);
         Tools.errorCallback(err, res);
       });

@@ -10,7 +10,7 @@ const _ = require('lodash');
 const core = require('axel-core');
 
 const {
-  ExtendedError, AuthService, DocumentManager, Tools
+  ExtendedError, AuthService, DocumentManager, Utils
 } = core;
 const MailService = require('../../services/common/MailService');
 
@@ -125,7 +125,7 @@ module.exports = {
       .then(() => {
         // If user created successfuly we return user and token as response
         if (axel.config.framework.user.emailConfirmationRequired) {
-          newUser.activationToken = Tools.md5(`${Date.now() + Math.random() * 1000}`);
+          newUser.activationToken = Utils.md5(`${Date.now() + Math.random() * 1000}`);
           newUser.isActive = false;
         } else {
           newUser.isActive = true;
@@ -159,7 +159,7 @@ module.exports = {
       })
       .catch((err) => {
         axel.logger.warn(err && err.message ? err.message : err);
-        Tools.errorCallback(err, res);
+        Utils.errorCallback(err, res);
       });
   },
 
@@ -267,8 +267,8 @@ module.exports = {
       })
       .catch((err) => {
         res.status(err.code ? parseInt(err.code) : 400).json({
-          errors: [err.message || 'not_found'],
-          message: err.message || 'not_found',
+          errors: [err.message || 'item_not_found'],
+          message: err.message || 'item_not_found',
         });
       })
       .then((result) => {
@@ -317,17 +317,17 @@ module.exports = {
    *           $ref: '#/definitions/User_ListResponse'
    */
   list(req, resp) {
-    const { listOfValues, startPage, limit } = Tools.injectPaginationQuery(req);
+    const { listOfValues, startPage, limit } = Utils.injectPaginationQuery(req);
 
     const options = {
       limit,
       skip: startPage * limit,
     };
 
-    let query = Tools.injectQueryParams(req);
+    let query = Utils.injectQueryParams(req);
 
     if (req.query.search) {
-      query = Tools.injectSqlSearchParams(req, query, {
+      query = Utils.injectSqlSearchParams(req, query, {
         modelName: 'user',
       });
     }
@@ -336,7 +336,7 @@ module.exports = {
         [axel.sqldb.Op.like]: axel.sqldb.literal(`'%"${req.query.roles}"%'`),
       };
     }
-    query = Tools.cleanSqlQuery(query);
+    query = Utils.cleanSqlQuery(query);
 
     axel.models.user.em
       .findAndCountAll(
@@ -365,7 +365,7 @@ module.exports = {
           if (listOfValues) {
             data = data.map(item => ({
               [primaryKey]: item[primaryKey].toString(),
-              label: Tools.formatName(item.firstname, item.lastname, item.username, true),
+              label: Utils.formatName(item.firstname, item.lastname, item.username, true),
             }));
           }
 
@@ -410,7 +410,7 @@ module.exports = {
   get(req, resp) {
     const id = req.param('userId');
     if (axel.mongodb) {
-      if (!Tools.checkIsMongoId(id, resp)) {
+      if (!Utils.checkIsMongoId(id, resp)) {
         return false;
       }
     }
@@ -431,8 +431,8 @@ module.exports = {
       .then((doc) => {
         if (!doc) {
           return resp.status(404).json({
-            message: 'not_found',
-            errors: ['not_found'],
+            message: 'item_not_found',
+            errors: ['item_not_found'],
           });
         }
 
@@ -448,7 +448,7 @@ module.exports = {
           return resp.status(200).json({
             body: {
               [primaryKey]: doc[primaryKey].toString(),
-              label: Tools.formatName(doc.firstname, doc.lastname, doc.username, true),
+              label: Utils.formatName(doc.firstname, doc.lastname, doc.username, true),
             },
           });
         }
@@ -490,7 +490,7 @@ module.exports = {
         });
       })
       .catch((err) => {
-        Tools.errorCallback(err, resp);
+        Utils.errorCallback(err, resp);
       });
   },
 
@@ -528,9 +528,9 @@ module.exports = {
         if (!u) {
           throw new ExtendedError({
             code: 404,
-            stack: 'not_found',
-            message: 'not_found',
-            errors: ['not_found'],
+            stack: 'item_not_found',
+            message: 'item_not_found',
+            errors: ['item_not_found'],
           });
         }
 
@@ -614,7 +614,7 @@ module.exports = {
         });
       })
       .catch((err) => {
-        Tools.errorCallback(err, res);
+        Utils.errorCallback(err, res);
       });
   },
 
@@ -650,14 +650,14 @@ module.exports = {
         });
       })
       .catch((err) => {
-        Tools.errorCallback(err, resp);
+        Utils.errorCallback(err, resp);
       });
   },
 
   uploadAvatar(req, resp) {
     const id = req.param('userId');
     if (axel.mongodb) {
-      if (!Tools.checkIsMongoId(id, resp)) {
+      if (!Utils.checkIsMongoId(id, resp)) {
         return false;
       }
     }
@@ -710,7 +710,7 @@ module.exports = {
         body: resultFilePath,
       }))
       .catch((err) => {
-        Tools.errorCallback(err, resp);
+        Utils.errorCallback(err, resp);
       });
   },
 };

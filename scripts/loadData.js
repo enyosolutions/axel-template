@@ -83,7 +83,7 @@ async function initServer() {
         }
         if (data.errors) {
           if (commandArgs.verbose) {
-            console.log(data.body);
+            console.log('loadData', data.body);
           }
           throw new Error(`error_${data.body.message}`);
         }
@@ -180,7 +180,7 @@ const loadData = async (modelName, options = { merge: {} }) => {
               fakeDataDictionnary[modelName] = [];
             }
             if (commandArgs.verbose) {
-              console.log(i, url, resp.status, data);
+              console.log('loadData', i, url, resp.status, data);
             }
             fakeDataDictionnary[modelName].push(data);
           }

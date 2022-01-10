@@ -73,7 +73,7 @@ async function initServer() {
     .then((data: any) => {
       if (data.status && data.status > 300) {
         if (commandArgs.verbose) {
-          console.log(data.body);
+          console.log('loadData', data.body);
         }
         throw new Error('error_' + (data.body.message || data.status));
       }
@@ -154,7 +154,7 @@ const loadData = async (modelName: string, options: any = { merge: {} }) => {
         }
       }
       if (commandArgs.verbose) {
-        console.log(source);
+        console.log('loadData', source);
         console.log('-');
         console.log('-');
         console.log('-');

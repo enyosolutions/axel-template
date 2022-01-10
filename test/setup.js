@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const path = require('path');
 const request = require('supertest');
 const dotenv = require('dotenv');
 const faker = require('faker');
@@ -7,7 +7,7 @@ const d = require('debug');
 const _ = require('lodash');
 const debug = d('axel:test:setup');
 
-dotenv.config({ path: resolve(process.cwd(), '.env.test') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env.test') });
 
 // const Server = require('../src/common/server');
 
@@ -45,7 +45,7 @@ module.exports = async () => {
       axel.config.logger.level = 'warn';
     }
     const testConfig = {};
-    import('../src/server.js')
+    import('./jestApp.js')
       .then(async (s) => {
         const server = await s.default;
         global.server = server;
@@ -78,7 +78,6 @@ module.exports = async () => {
             .send(user)
             .then((data) => {
               if (data.status && data.status > 300) {
-                console.log(data.body);
                 reject(data.body);
                 throw new Error('error_' + (data.body.message || data.status));
               }

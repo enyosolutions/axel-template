@@ -2,7 +2,7 @@ const request = require('supertest');
 const faker = require('faker');
 const jsf = require('json-schema-faker');
 const axel = global.axel || require('axel-core');
-const { app } = require('../../src/server');
+const { app } = require('../jestApp');
 
 jsf.extend('faker', () => faker);
 jsf.option('optionalsProbability', 0.3);

@@ -26,7 +26,7 @@ class AppController {
   }
 
   index(req, res) {
-    console.log(process.env.NODE_ENV);
+    console.log('NODE_ENV', process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'development') {
       return res.sendFile(`${process.cwd()}/public/axel-manager.html`);
     }
