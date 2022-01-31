@@ -10,6 +10,17 @@ const { AuthService } = core;
 const debug = require('debug')('app:policies:isAuthorized');
 
 module.exports = function isAuthorized(req, res, next) {
+  if (req.user && req.user.id) {
+    try {
+      req.user = await axel.models.user.em.findOne({ where: { id: req.user.id } }); // This is the decrypted token or the payload you provided
+      return next();
+    } catch (err) {
+      return res.status(401).json({
+        errors: [err.message],
+        message: 'error_user_not_found',
+      });
+    }
+  }
   let token;
   if (
     req.headers
@@ -57,7 +68,7 @@ module.exports = function isAuthorized(req, res, next) {
     if (error) {
       axel.logger.verbose('[ISAUTHORIZED]', error.message || error);
       return res.status(401).json({
-        errors: ['error_invalid_token'],
+        errors: [error.message || error],
         message: 'error_invalid_token',
       });
     }
