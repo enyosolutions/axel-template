@@ -6,23 +6,22 @@ module.exports = {
   node_env: process.env.NODE_ENV || 'development',
   env: 'LOCAL',
   app: 'app_local',
-
   websiteUrl: 'http://localhost:3500',
   apiUrl: 'http://localhost:1337',
   cdnUrl: 'http://localhost:3400',
-  redis: {},
-  session: {},
+
+  tokenSecret: process.env.APP_SECRET || 'put-yout-secret-token-here',
+
   sqldb: {
-    user: 'root',
-    password: '',
+    user: process.env.DATABASE_USER || 'root',
+    password: process.env.DATABASE_PASSWORD || 'localhost',
     host: process.env.DATABASE_HOST || 'localhost',
     database: process.env.DATABASE_NAME || 'app_database_env',
     port: process.env.DATABASE_PORT || 3306,
-    dialect: 'mysql',
+    dialect: process.env.DATABASE_DIALECT || 'mysql',
     options: {
-      dialect: 'mysql',
+      dialect: process.env.DATABASE_DIALECT || 'mysql',
       logging: false, // use DEBUG=sequelize:*  to see sql logs
-
     }
   },
 
@@ -47,7 +46,7 @@ module.exports = {
     webhook: '',
     channel: '#app_dev'
   },
-  tokenSecret: process.env.APP_SECRET || '',
+
   google: {
     clientId: '',
     clientSecret: '',
