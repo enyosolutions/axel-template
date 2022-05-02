@@ -11,7 +11,7 @@ module.exports = {
   cdnUrl: 'http://localhost:3400',
 
   tokenSecret: process.env.APP_SECRET || 'put-yout-secret-token-here',
-
+  disableCron: process.env.ENABLE_CRON !== undefined ? process.env.ENABLE_CRON :  false,
   sqldb: {
     user: process.env.DATABASE_USER || 'root',
     password: process.env.DATABASE_PASSWORD || 'localhost',
@@ -30,9 +30,9 @@ module.exports = {
     protocol: 'SMTP',
     options: {
       host: '127.0.0.1',
-      port: 25;
+      port: 25,
       tls: {
-        rejectUnauthorized: true
+        rejectUnauthorized: false
       }
     },
     from: 'hello@applocal.com'

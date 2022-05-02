@@ -147,7 +147,14 @@ module.exports = {
         delete newUser.encryptedPassword;
         if (newUser[primaryKey]) {
           res.status(201).json({
-            user: newUser,
+            user: _.omit(newUser, [
+              'password',
+              'encryptedPassword',
+              'passwordResetRequestedAt',
+              'passwordResetToken',
+              'googleToken',
+              'facebookToken',
+            ]),
             token,
           });
         } else {
@@ -351,7 +358,14 @@ module.exports = {
         let data;
         if (result && Array.isArray(result.rows)) {
           data = result.rows.map((user) => {
-            delete user.encryptedPassword;
+            user = _.omit(user, [
+              'password',
+              'encryptedPassword',
+              'passwordResetRequestedAt',
+              'passwordResetToken',
+              'googleToken',
+              'facebookToken',
+            ]);
             if (user.roles && typeof user.roles === 'string') {
               try {
                 user.roles = JSON.parse(user.roles);
@@ -604,13 +618,15 @@ module.exports = {
         raw: false,
       }))
       .then((userModel) => {
-        if (userModel) {
-          //   userModel = userModel.get();
-          delete userModel.encryptedPassword;
-        }
-
         res.json({
-          user: userModel,
+          user: _.omit(userModel, [
+            'password',
+            'encryptedPassword',
+            'passwordResetRequestedAt',
+            'passwordResetToken',
+            'googleToken',
+            'facebookToken',
+          ]),
         });
       })
       .catch((err) => {

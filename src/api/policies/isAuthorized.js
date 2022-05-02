@@ -9,7 +9,7 @@ const core = require('axel-core');
 const { AuthService } = core;
 const debug = require('debug')('app:policies:isAuthorized');
 
-module.exports = function isAuthorized(req, res, next) {
+module.exports = async function isAuthorized(req, res, next) {
   if (req.user && req.user.id) {
     try {
       req.user = await axel.models.user.em.findOne({ where: { id: req.user.id } }); // This is the decrypted token or the payload you provided

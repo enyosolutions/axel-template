@@ -94,7 +94,8 @@
     "replace": "^1.1.1",
     "sequelize-cli": "^6.2.0",
     "serialize-javascript": "^5.0.1",
-    "supertest": "^3.0.0"
+    "superagent-defaults": "^0.1.14",
+    "supertest": "^6.2.3"
   },
   "engines": {
     "node": ">=10.0.0"

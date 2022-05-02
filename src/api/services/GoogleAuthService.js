@@ -73,7 +73,6 @@ async function getGoogleAccountFromToken(token) {
   auth.setCredentials(token);
   google.options({ auth });
   const peopleApi = getPeopleApi(auth);
-  console.log('peopleApi', peopleApi);
 
   const me = await peopleApi.people.get({
     resourceName: 'people/me',

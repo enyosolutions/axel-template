@@ -281,7 +281,6 @@ module.exports = {
     const password = req.body.password;
     let token;
     let user;
-    console.log('[AuthController] admin login');
     const isAdminLogin = req.path.indexOf('admin_login') > -1;
 
     if (!email || !password) {
@@ -353,7 +352,14 @@ module.exports = {
         }
       })
       .then(() => res.status(200).json({
-        user,
+        user: _.omit(user, [
+          'password',
+          'encryptedPassword',
+          'passwordResetRequestedAt',
+          'passwordResetToken',
+          'googleToken',
+          'facebookToken',
+        ]),
         token,
       }))
       .catch((errUpdate) => {
@@ -457,7 +463,14 @@ module.exports = {
       // eslint-disable-next-line no-undef
       .then(() => {
         res.status(200).json({
-          user,
+          user: _.omit(user, [
+            'password',
+            'encryptedPassword',
+            'passwordResetRequestedAt',
+            'passwordResetToken',
+            'googleToken',
+            'facebookToken',
+          ]),
           token,
         });
       })
@@ -560,7 +573,14 @@ module.exports = {
       // eslint-disable-next-line no-undef
       .then(() => {
         res.status(200).json({
-          user,
+          user: _.omit(user, [
+            'password',
+            'encryptedPassword',
+            'passwordResetRequestedAt',
+            'passwordResetToken',
+            'googleToken',
+            'facebookToken',
+          ]),
           token,
         });
       })
