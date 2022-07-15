@@ -23,6 +23,7 @@ module.exports.framework = {
   allowedRoles: ['ADMIN', 'SUPERADMIN'],
   defaultPagination: 100,
   defaultLovPagination: 1000,
+  paginationStartsAtZero: false,
   axelAdmin: {
     enabled: true,
     editableModels: false,
