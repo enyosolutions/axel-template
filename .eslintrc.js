@@ -57,7 +57,12 @@ module.exports = {
     ],
     'no-confusing-arrow': 'error',
     'import/extensions': 0,
+    "node/no-missing-require": ["error", {
+      "allowModules": ["axel-core"]
+    }],
+
     'no-mixed-operators': 2,
+
     'class-methods-use-this': 0,
     'no-console': [
       'warn',

@@ -10,6 +10,7 @@
 
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
+// eslint-disable-next-line import/no-unresolved
 const core = require('axel-core');
 
 const { ExtendedError, AuthService, Tools } = core;
