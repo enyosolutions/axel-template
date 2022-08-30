@@ -93,7 +93,7 @@ async function initServer() {
       })
       .catch((err) => {
         if (commandArgs.verbose) {
-          console.log('err', err);
+          console.warn('err', err);
         }
         throw new Error(`error_${err.message}`);
       })

@@ -3,7 +3,7 @@ const core = require('axel-core');
 const I18n = require('./api/services/I18n');
 const CronService = require('./api/services/CronService');
 
-const { AxelAdmin, AxelManager, SchemaValidator } = core;
+const { AxelModelsService, AxelManager, SchemaValidator } = core;
 
 // eslint-disable-next-line
 module.exports.beforeFn = (app) => {
@@ -28,8 +28,9 @@ module.exports.afterFn = app => new Promise((resolve, reject) => {
       SchemaValidator.init();
     }
 
-    if (AxelAdmin) {
-      AxelAdmin.init(app);
+    // auto serve models via api
+    if (AxelModelsService) {
+      AxelModelsService.init(app);
     }
 
     if (process.env.NODE_ENV !== 'test') {

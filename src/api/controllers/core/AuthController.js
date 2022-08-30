@@ -476,7 +476,6 @@ module.exports = {
         });
       })
       .catch((err) => {
-        console.log('googleCallback', err.response);
         axel.logger.warn(err && err.message ? err.message : err);
         Tools.errorCallback(err, res);
       });
