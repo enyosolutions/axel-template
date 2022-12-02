@@ -1,3 +1,4 @@
+require('dotenv').config();
 /* eslint-disable global-require */
 let mergedConfig;
 try {

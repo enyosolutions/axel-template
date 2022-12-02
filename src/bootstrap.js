@@ -19,7 +19,7 @@ module.exports.beforeFn = (app) => {
     }
   });
 };
-
+// eslint-disable-next-line
 module.exports.afterFn = app => new Promise((resolve, reject) => {
   // add the function that you'd like to run after the app has started
   // Example the cron services.
@@ -29,13 +29,9 @@ module.exports.afterFn = app => new Promise((resolve, reject) => {
     }
 
     // auto serve models via api
-    if (AxelModelsService) {
-      AxelModelsService.init(app);
-    }
-
-    if (process.env.NODE_ENV !== 'test') {
-      AxelManager.init(app);
-    }
+    //    if (AxelModelsService) {
+    //      AxelModelsService.init(app);
+    //   }
 
     resolve();
   } catch (error) {

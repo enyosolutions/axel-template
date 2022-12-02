@@ -48,7 +48,7 @@ module.exports = {
           results.week = {
             list: list ? list.map(listItem => ({
               value: listItem.value,
-              week: moment(listItem.week, 'YYYY-WW').format('YYYY-MM-DD')
+              week: dayjs(listItem.week, 'YYYY-WW').format('YYYY-MM-DD')
             })) : null,
             total: list ? roundValue(list.reduce((reducer, current) => (current.value || 0) + reducer, 0)) : 0
           };

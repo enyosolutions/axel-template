@@ -17,12 +17,6 @@ module.exports = {
     // },
 
 
-    '/': {
-      controller: 'core/AppController',
-      action: 'index',
-      secure: false
-    },
-
     '/^(login|register|forgot-password|password-reset|app|reset-password)$': {
       controller: 'core/App',
       action: 'app',
@@ -47,23 +41,23 @@ module.exports = {
     '/api/swagger.json': {
       controller: 'core/AppController',
       action: 'swaggerJson',
-      secure: false,
+      secure: process.env.NODE_EN !== 'development',
     },
 
     '/api/swagger.yml': {
       controller: 'core/AppController',
       action: 'swaggerYml',
-      secure: false,
+      secure: process.env.NODE_EN !== 'development',
     },
 
     '/console': {
       view: 'swagger',
-      secure: false,
+      secure: process.env.NODE_EN !== 'development',
     },
 
     '/documentation': {
       view: 'redoc',
-      secure: false,
+      secure: process.env.NODE_EN !== 'development',
     },
 
     'OPTIONS /api/*': {

@@ -3,8 +3,11 @@
 At Enyosolutions, We are fans of sailsjs as a framework for nodejs projects. However over the years we've come accross some issues were painfull :
 
 - Slow startup time (compared to pure express, even express with similar middlewares)
-- No proper support for typescript
 - No nested services / Controllers folders
+- Complex to interact with express
+- No support for the next option of express
+- No support for error handlers
+- No proper support for typescript
 
 Also since we don't use waterline and websockets it was an unnecessary addition that slows startup time.
 Hence we started this project as an attempt to have a startup template for our projects that would support all the important features we like from sails without the rest (that could be made available in the future via a package).
@@ -24,7 +27,7 @@ Hence we started this project as an attempt to have a startup template for our p
 - [x] Connecting to the command line in order to sync models
 - [x] Generate bare controllers (connected to the crud controller)
 - [ ] Generate mongoose controllers ?
-- [ ] Move manager.ejs to axel folder, and enable the websocket only if config is enabled
+- [x] Move manager.ejs to axel folder, and enable the websocket only if config is enabled
 - [ ] rename axel into trex ?
 
 ## bugs
