@@ -5,6 +5,7 @@ module.exports = {
   autoValidate: true,
   primaryKeyField: 'id',
   displayField: '{{firstName}} {{lastName}}',
+  searchableFields: ['id', 'roles', 'username', 'firstName', 'lastName', 'email'],
   schema: {
     $id: 'http://acme.com/schemas/user.json',
     type: 'object',
@@ -17,10 +18,10 @@ module.exports = {
       roles: {
         type: 'array',
         default: ['USER'],
-        enum: ['USER', 'ADMIN'],
+        enum: ['USER', 'ADMIN', 'DEVELOPER'],
         items: {
           type: 'string',
-          enum: ['USER', 'ADMIN'],
+          enum: ['USER', 'ADMIN', 'DEVELOPER'],
         },
         column: {
           type: 'object',
@@ -31,13 +32,13 @@ module.exports = {
           fieldOptions: {
             multi: true,
             multiple: true,
-            options: ['USER', 'ADMIN'],
+            options: ['USER', 'ADMIN', 'DEVELOPER'],
           },
           displayOptions: {
             multiple: true,
             type: 'object',
           },
-          options: ['USER', 'ADMIN'],
+          options: ['USER', 'ADMIN', 'DEVELOPER'],
         }
       },
       firstName: {

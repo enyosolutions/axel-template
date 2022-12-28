@@ -23,7 +23,12 @@ module.exports = {
             return [];
           }
 
-          return JSON.parse(roles);
+          try {
+            return JSON.parse(roles);
+          } catch (err) {
+            console.warn('Error parsing roles', err);
+            return roles;
+          }
         },
         set(value) {
           this.setDataValue('roles', value ? JSON.stringify(value) : '');

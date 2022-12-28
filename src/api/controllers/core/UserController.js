@@ -5,8 +5,8 @@
  * @help        :: See http://links.axel.s.org/docs/controllers
  */
 
-const dayjs = require('dayjs');
 const _ = require('lodash');
+const dayjs = require('dayjs');
 const core = require('axel-core');
 
 const {
@@ -358,6 +358,9 @@ module.exports = {
         let data;
         if (result && Array.isArray(result.rows)) {
           data = result.rows.map((user) => {
+            if (user.toJSON) {
+              user = user.toJSON();
+            }
             user = _.omit(user, [
               'password',
               'encryptedPassword',
@@ -422,12 +425,7 @@ module.exports = {
    *           $ref: '#/definitions/User_ItemResponse'
    */
   get(req, resp) {
-    const id = req.param('userId');
-    if (axel.mongodb) {
-      if (!Utils.checkIsMongoId(id, resp)) {
-        return false;
-      }
-    }
+    const id = req.params.userId;
     const listOfValues = req.query.listOfValues ? req.query.listOfValues : false;
     const isLoggedIn = !!req.user;
 
@@ -448,6 +446,9 @@ module.exports = {
             message: 'item_not_found',
             errors: ['item_not_found'],
           });
+        }
+        if (doc.toJSON) {
+          doc = doc.toJSON();
         }
 
         if (doc.roles && typeof doc.roles === 'string') {
