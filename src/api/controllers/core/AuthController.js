@@ -10,6 +10,7 @@
 
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
+const dayjs = require('dayjs');
 // eslint-disable-next-line import/no-unresolved
 const core = require('axel-core');
 
@@ -20,8 +21,6 @@ const GoogleAuthService = require('../../services/GoogleAuthService');
 const FacebookAuthService = require('../../services/FacebookAuthService');
 
 const primaryKey = axel.config.framework.primaryKey;
-// const {flatten} = require('flat');
-// const {unfflatten} = require('flat');
 
 module.exports = {
   /**
@@ -70,7 +69,7 @@ module.exports = {
             user: _.omit(user, [
               'password',
               'encryptedPassword',
-              'passwordResetRequestedAt',
+              'passwordResetRequestedOn',
               'passwordResetToken',
               'googleToken',
               'facebookToken',
@@ -103,7 +102,7 @@ module.exports = {
    */
 
   confirmUserRegistration(req, res) {
-    const email = req.param('email');
+    const email = req.params.email || req.query.email || req.body.email;
     const token = req.query.token;
 
     if (!email) {
@@ -154,7 +153,7 @@ module.exports = {
           },
         );
       })
-      .then(() => res.redirect(`${axel.config.websiteUrl}/register`),)
+      .then(() => res.redirect(`${axel.config.frontendUrl || axel.config.websiteUrl}/register`))
       .catch((err) => {
         axel.logger.warn(err);
         Tools.errorCallback(err, res);
@@ -214,11 +213,12 @@ module.exports = {
         hash = hash.replace(/\./g, '-');
         user.passwordResetToken = hash;
 
-        user.passwordResetRequestedAt = new Date();
+        user.passwordResetRequestedOn = new Date();
         return axel.models.user.em.update(
           {
             passwordResetToken: hash,
-            passwordResetRequestedAt: user.passwordResetRequestedAt,
+            passwordResetRequestedOn: user.passwordResetRequestedOn,
+            passwordResetRequestedAt: user.passwordResetRequestedOn,
           },
           {
             where: {
@@ -234,6 +234,7 @@ module.exports = {
             message: 'error_forbidden',
           });
         }
+
         MailService.sendPasswordReset(user.email, {
           user,
         });
@@ -244,6 +245,146 @@ module.exports = {
         Tools.errorCallback(err, res);
       });
   },
+
+  /**
+ *
+ */
+  getByResetToken(req, res) {
+    const resetToken = req.body.resetToken || req.params.resetToken;
+
+    if (!resetToken) {
+      return res.status(404).json({
+        errors: ['missing_argument'],
+        message: 'missing_argument',
+      });
+    }
+
+    axel.models.user.em
+      .findOne({
+        where: {
+          passwordResetToken: resetToken,
+        },
+      })
+      .then((data) => {
+        if (!data) {
+          throw new ExtendedError({
+            code: 401,
+            stack: 'invalid_token',
+            message: 'invalid_token',
+            errors: ['invalid_token'],
+          });
+        }
+        if (
+          !data.passwordResetRequestedOn
+          || dayjs(data.passwordResetRequestedOn)
+            .add(10, 'm')
+            .isBefore(new Date())
+        ) {
+          throw new ExtendedError({
+            code: 401,
+            stack: 'expired_token',
+            message: 'The password reset request has expired, please try again.',
+            errors: ['expired_token'],
+          });
+        }
+        res.json({
+          resetToken: data.passwordResetToken,
+          [primaryKey]: data[primaryKey],
+        });
+      })
+      .catch((err) => {
+        res.status(err.code ? parseInt(err.code) : 400).json({
+          errors: [err.message || 'global_error'],
+          message: err.message || 'global_error',
+        });
+      });
+  },
+
+  reset(req, res) {
+    const resetToken = req.body.resetToken || req.params.resetToken;
+
+    if (!resetToken) {
+      return res.status(404).json({
+        errors: ['missing_argument'],
+        message: 'missing_argument',
+      });
+    }
+
+    if (!req.body.password) {
+      return res.status(404).json({
+        errors: ['error_missing_password'],
+        message: 'error_missing_password',
+      });
+    }
+
+    let user;
+    axel.models.user.em
+      .findOne({
+        where: {
+          passwordResetToken: resetToken,
+        },
+      })
+      .then((u) => {
+        if (!u || u.length < 1) {
+          throw new ExtendedError({
+            code: 401,
+            message: 'invalid_token',
+            errors: ['invalid_token'],
+          });
+        }
+        user = u;
+        if (
+          !user.passwordResetRequestedOn
+          || dayjs(user.passwordResetRequestedOn)
+            .add(20, 'm')
+            .isBefore(new Date())
+        ) {
+          throw new ExtendedError({
+            code: 401,
+            message: 'The password reset request has expired, please try again.',
+            errors: ['expired_token'],
+          });
+        }
+        user.password = req.body.password;
+        return AuthService.beforeUpdate(user);
+      })
+      .catch((err) => {
+        res.status(err.code ? parseInt(err.code) : 400).json({
+          errors: [err.message || 'item_not_found'],
+          message: err.message || 'item_not_found',
+        });
+      })
+      .then((result) => {
+        if (result) {
+          user.passwordResetToken = '';
+          return axel.models.user.em.update(user, {
+            where: {
+              [primaryKey]: user[primaryKey],
+            },
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(err.code ? parseInt(err.code) : 400).json({
+          errors: [err.message || 'update_error'],
+          message: err.message || 'update_error',
+        });
+      })
+      .then((success) => {
+        if (success) {
+          res.status(200).json({
+            body: 'password_reset_success',
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(400).json({
+          message: 'global_error',
+          errors: [err.message],
+        });
+      });
+  },
+
 
   /**
    * @swagger
@@ -356,7 +497,7 @@ module.exports = {
         user: _.omit(user, [
           'password',
           'encryptedPassword',
-          'passwordResetRequestedAt',
+          'passwordResetRequestedOn',
           'passwordResetToken',
           'googleToken',
           'facebookToken',
@@ -467,7 +608,7 @@ module.exports = {
           user: _.omit(user, [
             'password',
             'encryptedPassword',
-            'passwordResetRequestedAt',
+            'passwordResetRequestedOn',
             'passwordResetToken',
             'googleToken',
             'facebookToken',
@@ -576,7 +717,7 @@ module.exports = {
           user: _.omit(user, [
             'password',
             'encryptedPassword',
-            'passwordResetRequestedAt',
+            'passwordResetRequestedOn',
             'passwordResetToken',
             'googleToken',
             'facebookToken',

@@ -21,10 +21,17 @@ class AppController {
    */
   status(req, res) {
     res.json({
-      status: 'OK',
+      status: 'ok',
     });
   }
 
+  /**
+   * The home page of the api
+   *
+   * @param {*} req
+   * @param {*} res
+   * @memberof AppController
+   */
   index(req, res) {
     res.render('home');
   }
@@ -37,10 +44,6 @@ class AppController {
    */
   ok(req, res) {
     res.status(204);
-  }
-
-  debug(req, res) {
-    res.json({ status: new Date(), axel });
   }
 
   /**
@@ -65,14 +68,16 @@ class AppController {
   async statistics(req, res) {
     const promises = [];
     const results = {};
-    Object.keys(axel.models).filter(idx => axel.models[idx].em).forEach((idx) => {
-      const p = axel.models[idx].em.count().then((c) => {
-        results[idx] = c;
+    Object.keys(axel.models)
+      .filter(idx => axel.models[idx].em)
+      .forEach((idx) => {
+        const p = axel.models[idx].em.count().then((c) => {
+          results[idx] = c;
+        });
+        promises.push(p);
       });
-      promises.push(p);
-    });
     Promise.all(promises)
-      .then(() => (res.json({ body: results })))
+      .then(() => res.json({ body: results }))
       .catch(err => ErrorUtils.errorCallback(err, res));
   }
 

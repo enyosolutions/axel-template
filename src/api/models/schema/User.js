@@ -1,3 +1,4 @@
+const roles = ['USER', 'ADMIN', 'ADMINPANEL'];
 module.exports = {
   identity: 'user',
   apiUrl: '/api/user',
@@ -13,34 +14,12 @@ module.exports = {
       id: {
         type: 'integer',
         column: {},
-        field: { readonly: true },
-      },
-      roles: {
-        type: 'array',
-        default: ['USER'],
-        enum: ['USER', 'ADMIN', 'DEVELOPER'],
-        items: {
-          type: 'string',
-          enum: ['USER', 'ADMIN', 'DEVELOPER'],
-        },
-        column: {
-          type: 'object',
-          multiple: true,
-        },
         field: {
-          type: 'VSelect',
-          fieldOptions: {
-            multi: true,
-            multiple: true,
-            options: ['USER', 'ADMIN', 'DEVELOPER'],
-          },
-          displayOptions: {
-            multiple: true,
-            type: 'object',
-          },
-          options: ['USER', 'ADMIN', 'DEVELOPER'],
-        }
+          readonly: true,
+          visible: '{{ context.mode !== "create"}}'
+        },
       },
+
       firstName: {
         type: 'string',
         column: {},
@@ -66,13 +45,41 @@ module.exports = {
           required: true,
         },
       },
+      roles: {
+        type: 'array',
+        default: ['USER'],
+        enum: roles,
+        items: {
+          type: 'string',
+          enum: roles,
+        },
+        column: {
+          type: 'object',
+          multiple: true,
+          visible: false
+        },
+        field: {
+          type: 'VSelect',
+          cols: 12,
+          fieldOptions: {
+            multi: true,
+            multiple: true,
+            options: roles,
+          },
+          displayOptions: {
+            multiple: true,
+            type: 'object',
+          },
+          options: roles,
+        }
+      },
       encryptedPassword: {
         type: 'string',
         column: {
-          hidden: true,
+          visible: false,
         },
         field: {
-          hidden: true,
+          visible: false,
         },
       },
       phonenumber: {
@@ -84,13 +91,13 @@ module.exports = {
       passwordResetToken: {
         type: 'string',
         column: {
-          hidden: true,
+          visible: false,
         },
         field: {
-          hidden: true,
+          visible: false,
         },
       },
-      passwordResetRequestedAt: {
+      passwordResetRequestedOn: {
         type: 'string',
         format: 'date-time',
         column: {
@@ -103,10 +110,10 @@ module.exports = {
       activationToken: {
         type: 'string',
         column: {
-          hidden: true,
+          visible: false,
         },
         field: {
-          hidden: true,
+          visible: false,
         },
       },
       googleId: {
@@ -117,10 +124,10 @@ module.exports = {
       googleToken: {
         type: 'string',
         column: {
-          hidden: true,
+          visible: false,
         },
         field: {
-          hidden: true,
+          visible: false,
         },
       },
       facebookId: {
@@ -131,10 +138,10 @@ module.exports = {
       facebookToken: {
         type: 'string',
         column: {
-          hidden: true,
+          visible: false,
         },
         field: {
-          hidden: true,
+          visible: false,
         },
       },
       isActive: {
@@ -143,10 +150,22 @@ module.exports = {
       hasConfirmedEmail: {
         type: 'boolean',
         default: false,
+        column: {
+          visible: false,
+        },
+        field: {
+          visible: '{{ context.mode === "view" }}'
+        },
       },
       hasCompletedRegistration: {
         type: 'boolean',
         default: false,
+        column: {
+          visible: false,
+        },
+        field: {
+          visible: '{{ context.mode === "view" }}'
+        },
       },
 
       lastConnexionOn: {
@@ -154,10 +173,12 @@ module.exports = {
         format: 'date-time',
         column: {
           type: 'date',
+          visible: '{{ context.mode === "view" }}'
         },
         field: {
           type: 'dateTime',
           readonly: true,
+          visible: '{{ context.mode === "view" }}'
         },
       },
       createdOn: {
@@ -165,10 +186,12 @@ module.exports = {
         format: 'date-time',
         column: {
           type: 'datetime',
+          visible: '{{ context.mode === "view" }}'
         },
         field: {
           type: 'dateTime',
           readonly: true,
+          visible: '{{ context.mode === "view" }}'
         },
       },
       lastModifiedOn: {
@@ -176,10 +199,12 @@ module.exports = {
         format: 'date-time',
         column: {
           type: 'datetime',
+          visible: '{{ context.mode === "view" }}'
         },
         field: {
           type: 'dateTime',
           readonly: true,
+          visible: '{{ context.mode === "view" }}'
         },
       },
     },

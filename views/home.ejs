@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Axel Management</title>
+  <title>Management</title>
   <!-- needed for adaptive design -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,8 +20,11 @@
 <body id="page-top">
   <!-- Page Wrapper -->
   <div id="wrapper">
-    <h1><%= 'Welcome' %></h1>
+    <h1><%= 'Welcome' %>: <%= axel.config.appName || axel.config.app %></h1>
 
+    <% if (axel.config.plugins && axel.config.plugins.admin && axel.config.plugins.admin.enabled && process.env.NODE_ENV === 'development' ) { %>
+    <a href="/admin-panel">Admin panel</a>
+    <% } %>
   </div>
   <!-- End of Page Wrapper -->
 

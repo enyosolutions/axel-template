@@ -17,6 +17,9 @@ module.exports = {
     // },
 
 
+    /*
+    the 3 following rules are for cases when you are serving the front from the api.
+    */
     '/^(login|register|forgot-password|password-reset|app|reset-password)$': {
       controller: 'core/App',
       action: 'app',
@@ -85,12 +88,6 @@ module.exports = {
       secure: false,
     },
 
-    'POST /api/auth/admin_login': {
-      controller: 'core/AuthController',
-      action: 'login',
-      secure: false,
-    },
-
     'POST /api/auth/google/callback': {
       controller: 'core/AuthController',
       action: 'googleCallback',
@@ -116,9 +113,9 @@ module.exports = {
       secure: false,
     },
 
-    'GET /api/user/token/:resetToken': 'core/UserController.getByResetToken',
-    'POST /api/user/reset/:resetToken': {
-      controller: 'core/UserController',
+    'GET /api/auth/token/:resetToken': 'core/AuthController.getByResetToken',
+    'POST /api/auth/reset/:resetToken': {
+      controller: 'core/AuthController',
       action: 'reset',
       secure: false,
     },

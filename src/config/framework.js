@@ -20,28 +20,12 @@ module.exports.framework = {
     ADMIN: { inherits: ['BO'] },
     SUPERADMIN: { inherits: ['ADMIN'] },
   },
-  allowedRoles: ['ADMIN', 'SUPERADMIN'],
+  rolesWithAccessToBackoffice: ['ADMIN', 'SUPERADMIN'],
   defaultPagination: 100,
   defaultLovPagination: 1000,
   paginationStartsAtZero: false,
   axelAdmin: {
     enabled: true,
-    editableModels: false,
   },
-  axelManager: true,
   defaultApiSearchMode: 'exact', // defines how search parameters will be resolved by default => exact | start || full || wildcards
-  responseFormat: {
-    metadata: {
-      page: 0,
-      perPage: 20,
-      totalCount: 0,
-      previous: '',
-      next: '',
-    },
-    body: [],
-  },
-  errorResponseFormat: {
-    errors: ['error_codes'],
-    message: 'error message',
-  },
 };

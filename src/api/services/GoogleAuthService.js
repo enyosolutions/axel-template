@@ -42,7 +42,7 @@ function getGoogleUrl(scope) {
 }
 
 function getGmailUrl(scope) {
-  const auth = createConnection(`${axel.config.websiteUrl}/onboarding`);
+  const auth = createConnection(`${axel.config.frontendUrl || axel.config.websiteUrl}/onboarding`);
   google.options({ auth });
   const url = getConnectionUrl(auth, scope || 'profile email openid https://www.googleapis.com/auth/gmail.modify');
   return url;
