@@ -50,10 +50,6 @@ module.exports = {
         type: 'DataTypes.STRING(50)',
         allowNull: true,
       },
-      avatarUrl: {
-        type: 'DataTypes.STRING(500)',
-        allowNull: true,
-      },
       encryptedPassword: {
         type: 'DataTypes.STRING(100)',
         allowNull: false,

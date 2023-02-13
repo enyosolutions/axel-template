@@ -157,16 +157,6 @@ module.exports = {
           visible: '{{ context.mode === "view" }}'
         },
       },
-      hasCompletedRegistration: {
-        type: 'boolean',
-        default: false,
-        column: {
-          visible: false,
-        },
-        field: {
-          visible: '{{ context.mode === "view" }}'
-        },
-      },
 
       lastConnexionOn: {
         type: 'string',

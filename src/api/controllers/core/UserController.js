@@ -185,7 +185,7 @@ module.exports = {
    *         schema:
    *           $ref: '#/definitions/User_ListResponse'
    */
-  list(req, resp) {
+  findAll(req, resp) {
     const { listOfValues, startPage, limit } = Utils.injectPaginationQuery(req);
 
     const options = {
@@ -286,7 +286,7 @@ module.exports = {
    *         schema:
    *           $ref: '#/definitions/User_ItemResponse'
    */
-  get(req, resp) {
+  findOne(req, resp) {
     const id = req.params.userId;
     const listOfValues = req.query.listOfValues ? req.query.listOfValues : false;
     const isLoggedIn = !!req.user;
@@ -371,7 +371,7 @@ module.exports = {
       });
   },
 
-  update(req, res) {
+  updateOne(req, res) {
     let user;
     const newUser = req.body;
     let data;
@@ -497,7 +497,7 @@ module.exports = {
       });
   },
 
-  delete(req, resp) {
+  deleteOne(req, resp) {
     const id = req.params.userId;
 
     const collection = axel.models.user.em;

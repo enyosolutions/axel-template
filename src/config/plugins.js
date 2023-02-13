@@ -7,7 +7,8 @@ module.exports.plugins = {
       useNestedModels: false, // show nested models in admin
       useApiEndpoints: false, // use api endpoints defined by the user in admin
       rolesWithAccessToBackoffice: ['ADMINPANEL', 'ADMIN', 'SUPERADMIN'],
-      location: '' // absolute path of the admin panel. Useful when you eject the backoffice.
+      location: '', // absolute path of the admin panel. Useful when you eject the backoffice.
+      showAllModels: true, // show all models in admin
     }
   },
   'my-local-plugin': {

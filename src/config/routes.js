@@ -105,7 +105,7 @@ module.exports = {
       action: 'forgot',
       secure: false,
     },
-    'GET /api/auth/user': 'core/AuthController.get',
+    'GET /api/auth/user': 'core/AuthController.findOne',
 
     'GET /api/auth/confirm/:email': {
       controller: 'core/AuthController',
@@ -125,15 +125,15 @@ module.exports = {
       action: 'create',
       secure: false,
     },
-    'GET /api/user': 'core/UserController.list',
+    'GET /api/user': 'core/UserController.findAll',
     'GET /api/user/:userId': {
       controller: 'core/UserController',
       action: 'get',
       secure: true,
     },
-    'PUT /api/user/:userId': 'core/UserController.update',
+    'PUT /api/user/:userId': 'core/UserController.updateOne',
     'POST /api/user/:userId/avatar': 'core/UserController.uploadAvatar',
-    'DELETE /api/user/:userId': 'core/UserController.delete',
+    'DELETE /api/user/:userId': 'core/UserController.deleteOne',
 
     'GET /api/auth/gmail': {
       controller: 'core/AuthController',

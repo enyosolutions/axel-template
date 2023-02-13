@@ -2,7 +2,7 @@
   "name": "--name--",
   "description": "Express with sensible configuration",
   "author": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "scripts": {
     "data:load": "cross-env AXEL_DISABLE_EMAILS=true NO_SEQUELIZE_LOGS=true node scripts/loadData.js",
@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "ajv": "^6.12.2",
-    "axel-cli": "^0.32.18",
-    "axel-core": "^0.32.18",
+    "axel-cli": "0.32.20",
+    "axel-core": "0.32.20",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
